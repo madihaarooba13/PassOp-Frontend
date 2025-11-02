@@ -10,6 +10,8 @@ const Manager = () => {
     const [form, setform] = useState({ site: "", username: "", password: "" })
     const [passwordArray, setpasswordArray] = useState([])
     const [editIndex, seteditIndex] = useState(null)
+    const [show, setShow] = useState(false);
+
     const getPassword = async () => {
         let req = await fetch("https://passop-backend-2-nurv.onrender.com/")
         let passwords = await req.json()
@@ -140,21 +142,12 @@ const Manager = () => {
 
 
 
+
+
     const showPassword = () => {
-        // passwordref.current.type="text"
-        // alert("show the password")
-        if (ref.current.src.includes("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ9809ku1l9OC6QM7kT2UimZhtywkCrB_0aQ&s")) {
-            passwordref.current.type = "password"
-            ref.current.src = "https://cdn-icons-png.flaticon.com/512/159/159078.png"
+  setShow(!show);
+};
 
-        }
-        else {
-            passwordref.current.type = "text"
-            ref.current.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ9809ku1l9OC6QM7kT2UimZhtywkCrB_0aQ&s"
-
-        }
-
-    }
     return (
         <>
             <ToastContainer
@@ -188,10 +181,34 @@ const Manager = () => {
 
                         <div className="flex items-center w-full md:w-[48%] relative ">
 
-                            <input autoComplete='off' onChange={handleChange} value={form.password} placeholder='Enter Password' className='bg-white rounded-full border border-green-500 w-full p-3 py-2 pr-10' ref={passwordref} type="password" name="password" id="password" />
-                            <span className='absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer' onClick={showPassword} >
-                                <img ref={ref} className='p-1 items-center' width={35} src="https://cdn-icons-png.flaticon.com/512/159/159078.png" alt="eye" />
-                            </span>
+                         
+
+                            <input
+  autoComplete="off"
+  onChange={handleChange}
+  value={form.password}
+  placeholder="Enter Password"
+  className="bg-white rounded-full border border-green-500 w-full p-3 py-2 pr-10"
+  type={show ? "text" : "password"}   // ✅ toggle type here
+  name="password"
+  id="password"
+/>
+<span
+  className="absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer"
+  onClick={showPassword}
+>
+  <img
+    className={`p-1 items-center transition-all duration-200 ${show ? "opacity-90" : "opacity-100"}`}
+    width={35}
+    src={
+      show
+        ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ9809ku1l9OC6QM7kT2UimZhtywkCrB_0aQ&s" // open eye
+        : "https://cdn-icons-png.flaticon.com/512/159/159078.png" // closed eye
+    }
+    alt="eye"
+/>
+</span>
+
                         </div>
 
                     </div>
@@ -341,5 +358,4 @@ const Manager = () => {
 }
 
 export default Manager
-
 
