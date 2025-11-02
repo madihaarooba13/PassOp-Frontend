@@ -11,7 +11,7 @@ const Manager = () => {
     const [passwordArray, setpasswordArray] = useState([])
     const [editIndex, seteditIndex] = useState(null)
     const getPassword = async () => {
-        let req = await fetch("http://localhost:3000/")
+        let req = await fetch("https://passop-backend-2-nurv.onrender.com/")
         let passwords = await req.json()
         console.log(passwords)
         setpasswordArray(passwords)
@@ -40,7 +40,7 @@ const Manager = () => {
             setpasswordArray(passwordArray.filter(item => item.id !== id))
             // localStorage.setItem("passwords", JSON.stringify(newArray))
             // console.log(newArray)
-            let res = await fetch("http://localhost:3000/", {
+            let res = await fetch("https://passop-backend-2-nurv.onrender.com/", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -103,7 +103,7 @@ const Manager = () => {
                 setpasswordArray(newArray);
 
                 // ✅ Update in Mongo (no delete + reinsert)
-                await fetch("http://localhost:3000/update", {
+                await fetch("https://passop-backend-2-nurv.onrender.com/update", {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ ...form, id: oldId }),
@@ -118,7 +118,7 @@ const Manager = () => {
                 newArray.push(newPassword);
                 setpasswordArray(newArray);
 
-                await fetch("http://localhost:3000/", {
+                await fetch("https://passop-backend-2-nurv.onrender.com/", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(newPassword),
